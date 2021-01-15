@@ -31,6 +31,10 @@ export const requestSendTx = (payload) => {
   });
 };
 
+export const checkConnectAccount = () => {
+  handlePostEvent(SEND_ACTIONS_NAME.CHECK_CONNECT_ACCOUNT);
+};
+
 export const listenEvent = (callBack) => {
   try {
     window.addEventListener('message', (event) => {
