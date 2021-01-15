@@ -35,5 +35,8 @@
     "terser-webpack-plugin": "^5.0.3",
     "webpack": "^5.11.1",
     "webpack-cli": "^4.3.1"
+  },
+  "dependencies": {
+    "bignumber.js": "^9.0.1"
   }
 }

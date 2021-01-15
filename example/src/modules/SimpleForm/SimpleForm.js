@@ -1,8 +1,9 @@
 import React from 'react';
 import Wallet from "../../Components/Wallet";
-import { Container, Button, TextField, NativeSelect, Snackbar } from '@material-ui/core';
+import { Container, Button, TextField, MenuItem, Select } from '@material-ui/core';
 import SDK from 'incognito-extension-sdk';
 import withEnhance from './SimpleForm.enhance';
+import { convertToHumandAmount } from '../../utils';
 
 const SimpleForm = React.memo((props) => {
     const {
@@ -19,16 +20,17 @@ const SimpleForm = React.memo((props) => {
     const renderTokenList = () => {
         if (!account) return;
         return (
-            <NativeSelect
+            <Select
                 id="select"
+                defaultValue={account?.tokens ? account.tokens[0] : null}
                 className={classes.list}
                 onChange={event => changeText(event, 'token')}>
                 {account.tokens.map((token) =>
-                    <option key={token.tokenId} value={token}>
+                    <MenuItem key={token.tokenId} value={token}>
                         {token.symbol}
-                    </option>
+                    </MenuItem>
                 )}
-            </NativeSelect>
+            </Select>
         );
     };
 
@@ -36,7 +38,7 @@ const SimpleForm = React.memo((props) => {
         if (!account) return null;
         let currentToken = token;
         if (!token) currentToken = account.tokens[0];
-        return <p>{`Balance: ${currentToken.amount} ${currentToken.symbol}`}</p>
+        return <p>{`Balance: ${convertToHumandAmount(currentToken?.amount, currentToken?.decimals)} ${currentToken.symbol}`}</p>
     }
 
     const onRequestSendTx = async () => {

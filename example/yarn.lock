@@ -5850,7 +5850,7 @@ imurmurhash@^0.1.4:
 
 "incognito-extension-sdk@https://github.com/incognitochain/incognito-extension-sdk":
   version "1.0.0"
-  resolved "https://github.com/incognitochain/incognito-extension-sdk#24ada357619adc794b715c9ced5376aeda88b7be"
+  resolved "https://github.com/incognitochain/incognito-extension-sdk#717061132be88ceeaed481e46996f7b2fa624061"
 
 indefinite-observable@^2.0.1:
   version "2.0.1"
