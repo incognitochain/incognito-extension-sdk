@@ -3,7 +3,7 @@ import Wallet from "../../Components/Wallet";
 import { Container, Button, TextField, MenuItem, Select } from '@material-ui/core';
 import SDK from 'incognito-extension-sdk';
 import withEnhance from './SimpleForm.enhance';
-import { convertToHumandAmount } from '../../utils';
+import { convertToHumandAmount, ellipsisCenter } from '../../utils';
 
 const SimpleForm = React.memo((props) => {
     const {
@@ -34,11 +34,16 @@ const SimpleForm = React.memo((props) => {
         );
     };
 
-    const renderBalance = () => {
+    const renderAccountInfo = () => {
         if (!account) return null;
         let currentToken = token;
         if (!token) currentToken = account.tokens[0];
-        return <p>{`Balance: ${convertToHumandAmount(currentToken?.amount, currentToken?.decimals)} ${currentToken.symbol}`}</p>
+        return (
+          <>
+              <p>{`Balance: ${convertToHumandAmount(currentToken?.amount, currentToken?.pDecimals)} ${currentToken.symbol}`}</p>
+              <p>{`Address: ${ellipsisCenter({ str: account.paymentAddress, limit: 15 })}`}</p>
+          </>
+        );
     }
 
     const onRequestSendTx = async () => {
@@ -60,7 +65,7 @@ const SimpleForm = React.memo((props) => {
     return (
         <Container className={classes.wrapper}>
             <Wallet account={account} onClick={pressWallet}/>
-            {renderBalance()}
+            {renderAccountInfo()}
             <div className={classes.row}>
                 <TextField
                     className={classes.input}

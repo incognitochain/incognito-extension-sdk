@@ -21,3 +21,18 @@ export const convertToHumandAmount = (originalAmount, decimals) => {
     const indexNumber = new BigNumber(10).pow(decimals);
     return amount.dividedBy(indexNumber).toNumber();
 };
+
+export const ellipsisCenter = (payload) => {
+    const { str, limit = 10, dots = '...' } = payload;
+    try {
+        const size = str.length;
+        if (size < limit * 2 + dots.length) {
+            return str;
+        }
+        const leftStr = str.substring(0, limit);
+        const rightStr = str.substring(size - limit, size);
+        return leftStr + dots + rightStr;
+    } catch {
+        return str;
+    }
+};
