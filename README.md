@@ -172,7 +172,7 @@ case EXTENSION_EVENT.SEND_TX_FINISH: {
 }
 ```
 
-### 3: Event cancel send tx
+### 4: Event cancel send tx
 
 ```javascript
 case EXTENSION_EVENT.CANCEL_SEND_TX: {
