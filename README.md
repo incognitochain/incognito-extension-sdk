@@ -60,6 +60,24 @@ import SDK from 'incognito-extension-sdk';
 SDK.connectAccount()
 
 ```
+
+### Request send transaction
+
+```javascript
+import SDK from 'incognito-extension-sdk';
+
+...
+
+await SDK.requestSendTx({
+    accountName: string, // require
+    toAddress: string, // require
+    amount: string, // require
+    memo: string, // optional
+    tokenId: string // require
+})
+
+```
+
 ### Listen event from extension
 
 #### Custom event name:
@@ -170,6 +188,19 @@ case EXTENSION_EVENT.SEND_TX_FINISH: {
   console.debug('SEND TX WITH ERROR: ' + txInfo);
   break;
 }
+```
+
+#### Props:
+```javascript 
+ txInfo = {
+    txId: string,
+    paymentAddress: string,
+    time: string,
+    amount: string,
+    symbol: string,
+    fee: number,
+    feeSymbol: string,
+ }
 ```
 
 ### 4: Event cancel send tx
