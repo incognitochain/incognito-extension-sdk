@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import ErrorBoundary from "../../Components/ErrorBoundary";
 import SDK from 'incognito-extension-sdk';
 import EXTENSION_EVENT from "../../Consts/extensionConstants";
-import { STORAGE_KEY } from "../../Consts/appConstants";
-import { saveData, removeData, getData } from '../../utils';
 
 const enhanceListen = (WrappedComponent) => (props) => {
     const { account, setAccount } = props;
@@ -13,7 +11,6 @@ const enhanceListen = (WrappedComponent) => (props) => {
         switch (actionName) {
             case EXTENSION_EVENT.CONNECT_TO_ACCOUNT_SUCCESS: {
                 setAccount(data)
-                saveData(STORAGE_KEY.ACCOUNT, data);
                 break;
             }
             case EXTENSION_EVENT.CONNECT_TO_ACCOUNT_ERROR: {
@@ -22,7 +19,6 @@ const enhanceListen = (WrappedComponent) => (props) => {
             }
             case EXTENSION_EVENT.DISCONNECT_ACCOUNT: {
                 setAccount(null);
-                removeData(STORAGE_KEY.ACCOUNT);
                 break;
             }
             case EXTENSION_EVENT.SEND_TX_FINISH: {
@@ -48,13 +44,24 @@ const enhanceListen = (WrappedComponent) => (props) => {
         });
     }, []);
 
+    const handleCheckConnectAccount = React.useCallback(async () => {
+        const account = await SDK.checkConnectAccount();
+        setAccount(account)
+    }, [] );
+
     useEffect(() => {
-        // get account
-        const account = getData(STORAGE_KEY.ACCOUNT);
-        setAccount(account);
-        setTimeout(() => {
-            SDK.checkConnectAccount();
-        }, 500);
+        // Implement SDK with storage
+        SDK.storage.implement({
+            setMethod: async (key, data) => {
+                return localStorage.setItem(key, data);
+            },
+            getMethod: async (key) => {
+                return localStorage.getItem(key);
+            },
+            removeMethod: async (key) => localStorage.removeItem(key),
+            namespace: 'DAPP_EXAMPLE',
+        });
+        handleCheckConnectAccount().then();
     }, []);
 
     return (

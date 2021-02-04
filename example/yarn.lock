@@ -5853,9 +5853,9 @@ imurmurhash@^0.1.4:
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
   integrity sha1-khi5srkoojixPcT7a21XbyMUU+o=
 
-"incognito-extension-sdk@https://github.com/incognitochain/incognito-extension-sdk":
+"incognito-extension-sdk@https://github.com/incognitochain/incognito-extension-sdk#feature/sign-function":
   version "1.0.0"
-  resolved "https://github.com/incognitochain/incognito-extension-sdk#8ec3aa091ab791291e3bf5d938d435bb6026b8bb"
+  resolved "https://github.com/incognitochain/incognito-extension-sdk#42578e9cb7073525361222f34d6ee2a0933fa7ec"
   dependencies:
     bignumber.js "^9.0.1"
 
